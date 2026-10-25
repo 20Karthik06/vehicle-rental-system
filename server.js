@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(express.json());
@@ -20,8 +20,9 @@ app.use((req, res, next) => {
 // MongoDB Connection
 // ===============================
 
+const dbURI = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/milemark";
 mongoose
-    .connect("mongodb://127.0.0.1:27017/milemark")
+    .connect(dbURI)
     .then(() => console.log("MongoDB connected successfully"))
     .catch((error) => console.log("MongoDB connection error:", error));
 
